@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "noEmit": true,
+    "target": "es2022",
+    "module": "nodenext",
+    "skipLibCheck": true,
+    "types": []
+  },
+  "contentMappers": [
+    {
+      "package": "graphql-content-mapper",
+      "extensions": [".graphql"],
+      "options": { "scalars": { "DateTime": "string" } }
+    }
+  ],
+  "include": ["src"]
+}

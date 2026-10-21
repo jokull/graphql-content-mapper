@@ -1,0 +1,14 @@
+{
+  "name": "graphql-content-mapper-poc",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check:tsgo": "pnpm -r --no-bail run check:tsgo",
+    "check:tsrs": "pnpm -r --no-bail run check:tsrs",
+    "test": "node --test test/*.test.mjs"
+  },
+  "devDependencies": {
+    "typescript": "7.1.0-beta",
+    "tsrs": "0.18.0-ts7.1.0-dev.20260929"
+  }
+}

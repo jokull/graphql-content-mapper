@@ -1,0 +1,47 @@
+scalar DateTime
+
+"Something with a globally unique ID."
+interface Node {
+  id: ID!
+}
+
+enum Role {
+  ADMIN
+  EDITOR
+  VIEWER
+}
+
+"A person who can sign in."
+type User implements Node {
+  id: ID!
+  name: String
+  "Primary email address."
+  email: String!
+  role: Role!
+  posts(first: Int = 10): [Post!]!
+  createdAt: DateTime!
+}
+
+type Post implements Node {
+  id: ID!
+  title: String!
+  author: User!
+  tags: [String]
+}
+
+union SearchResult = User | Post
+
+input CreatePostInput {
+  title: String!
+  tags: [String!]
+}
+
+type Query {
+  me: User
+  node(id: ID!): Node
+  search(term: String!): [SearchResult!]!
+}
+
+type Mutation {
+  createPost(input: CreatePostInput!): Post!
+}
