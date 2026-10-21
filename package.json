@@ -8,7 +8,9 @@
     "test": "node --test test/*.test.mjs"
   },
   "devDependencies": {
-    "typescript": "7.1.0-beta",
-    "tsrs": "0.18.0-ts7.1.0-dev.20260929"
+    "gql.tada": "1.11.3",
+    "graphql-content-mapper": "workspace:*",
+    "tsrs": "0.18.0-ts7.1.0-dev.20260929",
+    "typescript": "7.1.0-beta"
   }
 }

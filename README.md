@@ -45,6 +45,11 @@ validates it with graphql-js, and returns TypeScript containing:
    src/schema.graphql(7,11): error graphql2: Unknown type "Image".
    ```
 
+For gql.tada's multi-schema setup, set `"options": { "named": true }`. Each schema then takes its name from its file
+name (`dato.graphql` → `'dato'`), skips the `setupSchema` augmentation, and is passed in explicitly:
+`initGraphQLTada<{ introspection: introspection }>()` with `import type { introspection } from './dato.graphql'`.
+Options apply to every file with the extension, which is why the name comes from the file and not from config.
+
 The schema file is the mapper's only input, so TypeScript's own file watching re-runs it when the schema changes.
 
 ## Try it
@@ -69,6 +74,18 @@ pnpm check:tsrs    # the same with tsrs, the Rust port of TS 7
 | SDL syntax and validation errors at the right line and column | yes | yes |
 | Span map consumed (via `typescript/sync` API) | yes | n/a (no JS API) |
 | Editor: hover / go-to-definition into the SDL | not tried yet | tsrs LSP doesn't support mappers yet |
+
+## Tried on a real monorepo
+
+Trip To Japan has two schemas, DatoCMS (490 KB SDL) and Bokun (160 KB):
+
+- The mapper's introspection output is byte-identical to the `graphql-env.d.ts` files GraphQLSP generated.
+- The mapper transforms the Dato SDL in about 130 ms.
+- `.d.ts` emitted for the real query modules is identical with the mapper and with the generated files.
+- `contentMappers` is inherited through tsconfig `extends`, and package `exports` can point `types` at a `.graphql`
+  file.
+- oxlint's type-aware mode (tsgolint 7.0.x) doesn't support content mappers yet, so `.graphql` imports fail there
+  with TS2307.
 
 ## Gaps
 

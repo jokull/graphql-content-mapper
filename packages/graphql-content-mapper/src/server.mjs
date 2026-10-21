@@ -28,7 +28,7 @@ const methods = {
   },
   transform(params) {
     const project = projects.get(params.projectHandle) ?? { options: {} }
-    return transformSchema(params.content, project.options)
+    return transformSchema(params.content, project.options, params.fileName)
   },
 }
 
